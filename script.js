@@ -35,6 +35,13 @@ form.addEventListener("submit", function(e) {
   mensagem.textContent = "Enviando..."
   mensagem.style.color = "black"
 
+ const dados = {
+  nome,
+  email
+}
+
+console.log(dados)
+
   fetch("https://jsonplaceholder.typicode.com/posts", {
     method: "POST",
     headers: {
