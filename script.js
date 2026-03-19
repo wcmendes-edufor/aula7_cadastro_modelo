@@ -35,14 +35,17 @@ form.addEventListener("submit", function(e) {
   mensagem.textContent = "Enviando..."
   mensagem.style.color = "black"
 
-  fetch("https://jsonplaceholder.typicode.com/posts", {
+  let idade = 42
+
+  fetch("https://a52b6bac-d065-43ce-9025-0c034941204a-00-3zkg425yb1y3.spock.replit.dev/api/cadastro", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
       nome,
-      email
+      email,
+      idade
     })
   })
   .then(res => res.json())
