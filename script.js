@@ -37,7 +37,7 @@ form.addEventListener("submit", function(e) {
 
   let idade = 42
 
-  fetch("https://a52b6bac-d065-43ce-9025-0c034941204a-00-3zkg425yb1y3.spock.replit.dev/api/cadastro", {
+  fetch("http://servlet-data-hub.replit.app/api/cadastro", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
