@@ -10,7 +10,6 @@ form.addEventListener("submit", function(e) {
   const nome = nomeInput.value.trim()
   const email = emailInput.value.trim()
 
-  // limpa erros anteriores
   nomeInput.classList.remove("erro")
   emailInput.classList.remove("erro")
 
@@ -21,7 +20,8 @@ form.addEventListener("submit", function(e) {
     valido = false
   }
 
-  if (!email.includes("@") || email.length < 5) {
+  const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  if (!regexEmail.test(email)) {
     emailInput.classList.add("erro")
     valido = false
   }
@@ -32,6 +32,13 @@ form.addEventListener("submit", function(e) {
     return
   }
 
+  const dados = {
+    nome,
+    email
+  }
+
+  console.log("Enviando para o backend:", dados)
+
   mensagem.textContent = "Enviando..."
   mensagem.style.color = "black"
 
@@ -40,19 +47,16 @@ form.addEventListener("submit", function(e) {
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({
-      nome,
-      email
+    body: JSON.stringify(dados)
+  })
+    .then(res => res.json())
+    .then(data => {
+      console.log("Resposta do backend:", data)
+      mensagem.textContent = "Cadastro realizado com sucesso!"
+      mensagem.style.color = "green"
     })
-  })
-  .then(res => res.json())
-  .then(data => {
-    mensagem.textContent = "Cadastro realizado com sucesso!"
-    mensagem.style.color = "green"
-    console.log(data)
-  })
-  .catch(() => {
-    mensagem.textContent = "Erro ao enviar"
-    mensagem.style.color = "red"
-  })
+    .catch(() => {
+      mensagem.textContent = "Erro ao enviar"
+      mensagem.style.color = "red"
+    })
 })
